@@ -1188,6 +1188,76 @@ a:hover { color: var(--ea-gold-600); }
 	.main-navigation { padding-bottom: 96px; }
 }
 
+/* ==========================================================================
+   22. Fotografie
+   ========================================================================== */
+/* Bildfigur mit festem Seitenverhältnis - verhindert Layoutsprünge beim Laden */
+.ea-figure--photo { background: var(--ea-navy-800); overflow: hidden; }
+.ea-figure--photo img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.ea-figure--wide img { aspect-ratio: 16 / 10; }
+.ea-figure--square img { aspect-ratio: 1 / 1; }
+
+/* Foto im Kartenkopf: zieht über die Innenabstände der Karte hinaus */
+.ea-card__media { display: block; margin: -30px -30px 22px; background: var(--ea-navy-800); overflow: hidden; }
+.ea-card__media img {
+	width: 100%; height: auto;
+	aspect-ratio: 16 / 10;
+	object-fit: cover;
+	transition: transform .4s var(--ea-ease);
+}
+.ea-card--link:hover .ea-card__media img { transform: scale(1.03); }
+
+/* Hero mit Foto: Navy-Verlauf hält den Text lesbar, egal wie hell das Motiv ist */
+.ea-hero__bg { position: absolute; inset: 0; z-index: 0; }
+.ea-hero__bg img { width: 100%; height: 100%; object-fit: cover; }
+.ea-hero__bg::after {
+	content: "";
+	position: absolute; inset: 0;
+	background: linear-gradient(100deg,
+		var(--ea-navy) 0%,
+		rgba(11, 24, 37, .95) 40%,
+		rgba(11, 24, 37, .78) 68%,
+		rgba(11, 24, 37, .60) 100%);
+}
+.ea-hero > .ea-container { position: relative; z-index: 1; }
+
+/* Durchgehendes Bildband mit Aussage */
+.ea-band { position: relative; overflow: hidden; background: var(--ea-navy); color: rgba(255, 255, 255, .82); }
+.ea-band__bg { position: absolute; inset: 0; }
+.ea-band__bg img { width: 100%; height: 100%; object-fit: cover; }
+.ea-band__bg::after {
+	content: "";
+	position: absolute; inset: 0;
+	background: linear-gradient(95deg,
+		rgba(11, 24, 37, .96) 0%,
+		rgba(11, 24, 37, .88) 46%,
+		rgba(11, 24, 37, .66) 100%);
+}
+.ea-band > .ea-container { position: relative; z-index: 1; padding-block: var(--ea-section-sm); }
+.ea-band h2 { color: var(--ea-white); }
+.ea-band p { color: rgba(255, 255, 255, .78); }
+.ea-band__inner { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; align-items: center; }
+
+/* Foto in der Splitspalte */
+.ea-split .ea-figure--photo img { aspect-ratio: 3 / 4; }
+
+@media (max-width: 980px) {
+	.ea-band__inner { grid-template-columns: 1fr; gap: 26px; }
+	.ea-split .ea-figure--photo img { aspect-ratio: 16 / 10; }
+	.ea-figure--photo img { aspect-ratio: 16 / 10; }
+}
+
+@media (max-width: 700px) {
+	.ea-card__media { margin: -30px -30px 20px; }
+	.ea-hero__bg::after {
+		background: linear-gradient(180deg,
+			rgba(11, 24, 37, .92) 0%,
+			rgba(11, 24, 37, .88) 60%,
+			rgba(11, 24, 37, .82) 100%);
+	}
+	.ea-band__bg::after { background: rgba(11, 24, 37, .9); }
+}
+
 @media print {
 	.ea-topbar, .site-header, .site-footer, .ea-cookie, .ea-totop, .ea-btn-row,
 	.ea-dock, .ea-mobilebar, .ea-newsletter, .ea-wizard__nav { display: none !important; }
