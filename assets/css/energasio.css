@@ -704,7 +704,7 @@ a:hover { color: var(--ea-gold-600); }
 	transition: transform .32s var(--ea-ease);
 }
 .ea-cookie.is-visible { transform: translateY(0); }
-.ea-cookie__inner { display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: center; padding: 22px 0 24px; }
+.ea-cookie__inner { display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: center; padding-block: 22px 24px; }
 .ea-cookie h2 { font-size: 17px; margin-bottom: 6px; }
 .ea-cookie p { font-size: var(--ea-fs-small); color: var(--ea-text-muted); margin: 0; max-width: 78ch; }
 .ea-cookie__actions { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -880,7 +880,9 @@ a:hover { color: var(--ea-gold-600); }
    17. Newsletter-Streifen im Footer
    ========================================================================== */
 .ea-newsletter { background: var(--ea-navy-800); border-bottom: 1px solid rgba(255, 255, 255, .08); }
-.ea-newsletter__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; padding: 52px 0; }
+/* padding-block, nicht padding: der Shorthand würde den seitlichen
+   Abstand von .ea-container auf 0 setzen. */
+.ea-newsletter__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; padding-block: 52px; }
 .ea-newsletter h2 { font-size: 24px; line-height: 1.2; color: var(--ea-white); }
 .ea-newsletter p { color: rgba(255, 255, 255, .68); margin: 0; max-width: 48ch; }
 .ea-newsletter__form label { color: rgba(255, 255, 255, .75); }
@@ -1183,7 +1185,9 @@ a:hover { color: var(--ea-gold-600); }
 	.ea-mobilebar__wa svg { color: #25d366; }
 	.ea-mobilebar__cta { background: var(--ea-gold); }
 	body { padding-bottom: 66px; }
-	.ea-totop { left: 16px; bottom: 82px; }
+	/* Dock ist mobil ausgeblendet - der Knopf darf zurück nach rechts,
+	   links würde er die Footer-Links überdecken. */
+	.ea-totop { left: auto; right: 16px; bottom: 78px; width: 40px; height: 40px; }
 	.ea-cookie { bottom: 66px; }
 	.main-navigation { padding-bottom: 96px; }
 }
