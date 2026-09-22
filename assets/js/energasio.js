@@ -134,9 +134,11 @@
 		var items = doc.querySelectorAll('.ea-reveal');
 		if (!items.length) { return; }
 
+		// Die Animation ist reine Zugabe: Der Inhalt ist per CSS ohnehin
+		// sichtbar. Faellt der Observer aus, passiert schlicht nichts.
 		if (!('IntersectionObserver' in window) ||
-			window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-			items.forEach(function (item) { item.classList.add('is-in'); });
+			window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+			!window.innerHeight) {
 			return;
 		}
 

@@ -737,9 +737,19 @@ a:hover { color: var(--ea-gold-600); }
 .ea-muted { color: var(--ea-text-muted); }
 .ea-nowrap { white-space: nowrap; }
 
-/* Einblenden nur, wenn JavaScript aktiv ist - ohne JS bleibt alles sichtbar. */
-.js .ea-reveal { opacity: 0; transform: translateY(12px); }
-.js .ea-reveal.is-in { opacity: 1; transform: none; transition: opacity .45s var(--ea-ease), transform .45s var(--ea-ease); }
+/* Sanftes Einblenden - rein additiv.
+   Wichtig: Der Inhalt ist IMMER sichtbar. Die Animation legt sich nur oben
+   drauf, wenn sie ausgeloest wird. Frueher wurde .ea-reveal per opacity:0
+   versteckt und erst per IntersectionObserver eingeblendet - feuerte der
+   Observer nicht (In-App-Browser, Hintergrund-Tab, Druckansicht), blieben
+   ganze Abschnitte unsichtbar. */
+@keyframes ea-reveal-in {
+	from { opacity: 0; transform: translateY(12px); }
+	to   { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+	.js .ea-reveal.is-in { animation: ea-reveal-in .45s var(--ea-ease) both; }
+}
 
 @media (max-width: 1100px) {
 	:root { --ea-section: 76px; --ea-section-sm: 52px; }
@@ -824,7 +834,6 @@ a:hover { color: var(--ea-gold-600); }
 @media (prefers-reduced-motion: reduce) {
 	html { scroll-behavior: auto; }
 	*, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
-	.js .ea-reveal { opacity: 1; transform: none; }
 }
 
 /* ==========================================================================
